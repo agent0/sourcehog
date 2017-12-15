@@ -8,8 +8,8 @@ fi
 if [ "$1" == "index" ]; then
   rm d:/tmp/java.ctags
   ctags -f d:/tmp/java.ctags --excmd=number --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified --exclude=*.min.js d:/Programming/Java
-#  ctags -f d:/tmp/java.ctags --languages=javascript,html -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified  --exclude=*.min.js d:/Programming/Javascript
-#  ctags -f d:/tmp/java.ctags --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified  --exclude=*.min.js d:/Projekte
+  ctags -f d:/tmp/java.ctags --excmd=number --languages=javascript,html -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified  --exclude=*.min.js d:/Programming/Javascript
+  ctags -f d:/tmp/java.ctags --excmd=number --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified  --exclude=*.min.js d:/Projekte
 fi
 
 if [ "$1" == "find" ]; then
