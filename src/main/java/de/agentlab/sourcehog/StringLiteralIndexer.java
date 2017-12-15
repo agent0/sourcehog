@@ -24,7 +24,6 @@ public class StringLiteralIndexer {
     }
 
     public void index(String filename) {
-        System.out.println("###");
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line;
