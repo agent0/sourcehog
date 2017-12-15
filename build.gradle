@@ -1,0 +1,21 @@
+defaultTasks 'local'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    flatDir(dirs: 'lib')
+}
+
+group = 'de.agentlab'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+task copyResources(type: Copy) {
+    from "${projectDir}/src/main/java"
+    into "${buildDir}/classes/main"
+    include "**/*.fxml"
+}
+compileJava.dependsOn copyResources
