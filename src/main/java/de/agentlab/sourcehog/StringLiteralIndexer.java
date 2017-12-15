@@ -14,7 +14,7 @@ public class StringLiteralIndexer {
         StringLiteralIndexer stringLiteralIndexer = new StringLiteralIndexer();
 
         try {
-            Files.walk(Paths.get("D:\\Programming\\Java"))
+            Files.walk(Paths.get(args[0]))
                     .filter(f -> Files.isRegularFile(f) && f.toString().endsWith("java"))
                     .forEach(f -> stringLiteralIndexer.index(f.toAbsolutePath().toString()));
         } catch (IOException e) {
@@ -27,7 +27,7 @@ public class StringLiteralIndexer {
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line;
-                int index = 0;
+                int index = 1;
                 while ((line = br.readLine()) != null) {
 
                     Pattern p = Pattern.compile("\"([^\"]*)\"");
