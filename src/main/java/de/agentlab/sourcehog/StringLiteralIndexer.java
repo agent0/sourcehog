@@ -14,8 +14,8 @@ public class StringLiteralIndexer {
         StringLiteralIndexer stringLiteralIndexer = new StringLiteralIndexer();
 
         try {
-            Files.walk(Paths.get("D:\\Programming\\Java\\sourcehog\\src\\main\\java\\de\\agentlab\\sourcehog\\"))
-                    .filter(f -> f.toString().endsWith("java"))
+            Files.walk(Paths.get("D:\\Programming\\Java"))
+                    .filter(f -> Files.isRegularFile(f) && f.toString().endsWith("java"))
                     .forEach(f -> stringLiteralIndexer.index(f.toAbsolutePath().toString()));
         } catch (IOException e) {
             e.printStackTrace();
