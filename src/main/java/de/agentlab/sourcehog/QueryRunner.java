@@ -5,6 +5,8 @@ import java.util.List;
 
 public class QueryRunner extends AbstractRunner {
 
+    private Configuration configuration = new Configuration();
+
     public static void main(String argv[]) throws IOException {
         List<String> result = new QueryRunner().run();
         System.out.println(result.size());
@@ -17,6 +19,6 @@ public class QueryRunner extends AbstractRunner {
 
     @Override
     public String[] getCommandline(String... params) {
-        return new String[]{"C:/Users/jli/.babun/cygwin/bin/bash.exe", "-c", "hog find d:/tmp/java.ctags " + params[0]};
+        return new String[]{"C:/Users/jli/.babun/cygwin/bin/bash.exe", "-c", "hog find " + this.configuration.getDatabase() + " " + params[0]};
     }
 }

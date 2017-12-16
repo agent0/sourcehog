@@ -7,11 +7,16 @@ import java.util.List;
 
 public class IndexAction {
 
+    private Configuration configuration = new Configuration();
+
     public void process(ActionEvent event) {
-        List<String> result = new IndexRunner().run("d:/tmp/java.ctags", "d:/Programming/Java", "d:/Programming/Javascript");
+
+        String[] params = ArrayUtils.join(this.configuration.getDatabase(), this.configuration.getSourceDirs());
+
+        List<String> result = new IndexRunner().run(params);
         System.out.println(result);
 
-        new StringLiteralIndexer().index("d:/tmp/java.ctags", "d:/Programming/Java");
+        new StringLiteralIndexer().index(this.configuration.getDatabase(), this.configuration.getSourceDirs());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Done");
