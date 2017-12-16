@@ -6,18 +6,30 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class UI extends Application {
+public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Sourcehog");
         primaryStage.setScene(new Scene(root, 800, 400));
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        launch(args);
+        if (args.length > 0) {
+            String command = args[0];
+            if (command.equals("index")) {
+                System.out.println("index");
+
+            } else if (command.equals("lindex")) {
+
+            } else if (command.equals("find")) {
+
+            }
+        } else {
+            launch(args);
+        }
     }
 }

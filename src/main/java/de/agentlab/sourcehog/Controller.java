@@ -45,4 +45,9 @@ public class Controller implements Initializable {
         tableView.getItems().clear();
         tableView.getItems().addAll(result);
     }
+
+    @FXML
+    private void handleExitAction(final ActionEvent event) {
+        System.exit(0);
+    }
 }

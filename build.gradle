@@ -15,7 +15,7 @@ targetCompatibility = 1.8
 
 jar {
     manifest {
-        attributes 'Main-Class': 'de.agentlab.sourcehog.UI'
+        attributes 'Main-Class': 'de.agentlab.sourcehog.Main'
     }
 }
 
