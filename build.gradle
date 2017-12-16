@@ -13,6 +13,12 @@ group = 'de.agentlab'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.agentlab.sourcehog.UI'
+    }
+}
+
 task copyResources(type: Copy) {
     from "${projectDir}/src/main/java"
     into "${buildDir}/classes/main"
