@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Controller implements Initializable {
     private TableView<CTag> tableView;
 
     private IndexAction indexAction = new IndexAction();
+    private Stage stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,6 +44,10 @@ public class Controller implements Initializable {
         search(term);
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     private void search(String term) {
         List<CTag> result = new QueryRunner().run(term).stream().map(line -> new CTag(line)).collect(Collectors.toList());
         tableView.getItems().clear();
@@ -55,6 +61,6 @@ public class Controller implements Initializable {
 
     @FXML
     private void handleIndexAction(final ActionEvent event) {
-        this.indexAction.process(event);
+        this.indexAction.process(event, this.stage);
     }
 }
