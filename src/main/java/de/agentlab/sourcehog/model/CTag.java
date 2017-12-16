@@ -15,6 +15,7 @@ public class CTag {
     public CTag(String tag, String file, String line) {
         setTag(tag);
         setFile(file);
+        setLine(line);
     }
 
     public CTag(String line) {
@@ -51,7 +52,7 @@ public class CTag {
     @Override
     public String toString() {
         return "CTag{" +
-                "tag=" + tagProperty.get()+
+                "tag=" + tagProperty.get() +
                 ", fileK=" + fileProperty.get() +
                 ", line=" + lineProperty.get() +
                 '}';

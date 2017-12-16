@@ -14,7 +14,7 @@ if [ "$1" == "index" ]; then
   for i in "${@:3}"
   do
     echo "indexing $i"
-    ctags -f $2 --excmd=number --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified --exclude=*.min.js $i
+    ctags -f $2 --excmd=number --languages=java,javascript -a -R --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified --exclude=*.min.js $i
   done
 fi
 

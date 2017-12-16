@@ -2,8 +2,8 @@ package de.agentlab.sourcehog.dialogs.main;
 
 import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
 import de.agentlab.sourcehog.model.CTag;
+import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
-import de.agentlab.sourcehog.runner.QueryRunner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
 
@@ -56,15 +55,18 @@ public class MainController implements Initializable {
 
     private void search(String term) {
         String[] split = term.split("\\s+");
-        List<CTag> result = new QueryRunner().run(split[0]).stream().map(line -> new CTag(line)).filter(ctag -> {
-            if (split.length == 1) {
-                return true;
-            } else if (split.length == 2) {
-                return CommonUtils.containsIgnoreCase(ctag.getFile(), split[1]);
-            } else {
-                return true;
-            }
-        }).collect(Collectors.toList());
+
+        List<CTag> result = new QueryEngine().find(term);
+
+//        List<CTag> result = new QueryRunner().run(split[0]).stream().map(line -> new CTag(line)).filter(ctag -> {
+//            if (split.length == 1) {
+//                return true;
+//            } else if (split.length == 2) {
+//                return CommonUtils.containsIgnoreCase(ctag.getFile(), split[1]);
+//            } else {
+//                return true;
+//            }
+//        }).collect(Collectors.toList());
         tableView.getItems().clear();
         tableView.getItems().addAll(result);
     }
