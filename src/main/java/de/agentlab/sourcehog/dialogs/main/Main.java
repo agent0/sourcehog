@@ -21,7 +21,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("user.home"));
         if (args.length > 0) {
             String command = args[0];
             if (command.equals("index")) {

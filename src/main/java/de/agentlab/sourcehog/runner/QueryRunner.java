@@ -17,7 +17,7 @@ public class QueryRunner extends AbstractRunner {
         Configuration configuration = new Configuration();
         configuration.load();
 
-        return new String[]{"path=%PATH%;C:/Software/bin/;C:/Users/jli/.babun/cygwin/bin/"};
+        return new String[]{"path=%PATH%;" + configuration.getHogdir() + ";" + configuration.getCygwindir()};
     }
 
     @Override
