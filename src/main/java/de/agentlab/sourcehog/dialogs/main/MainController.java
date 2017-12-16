@@ -55,7 +55,16 @@ public class MainController implements Initializable {
     }
 
     private void search(String term) {
-        List<CTag> result = new QueryRunner().run(term).stream().map(line -> new CTag(line)).collect(Collectors.toList());
+        String[] split = term.split("\\s+");
+        List<CTag> result = new QueryRunner().run(split[0]).stream().map(line -> new CTag(line)).filter(ctag -> {
+            if (split.length == 1) {
+                return true;
+            } else if (split.length == 2) {
+                return CommonUtils.containsIgnoreCase(ctag.getFile(), split[1]);
+            } else {
+                return true;
+            }
+        }).collect(Collectors.toList());
         tableView.getItems().clear();
         tableView.getItems().addAll(result);
     }
