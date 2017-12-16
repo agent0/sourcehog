@@ -17,4 +17,12 @@ public class IndexActionPopupController {
     public String getDirsValue() {
         return this.dirs.getText();
     }
+
+    public void setDbFileValue(String value) {
+        this.dbfile.setText(value);
+    }
+
+    public void setDirsValue(String value) {
+        this.dirs.setText(value);
+    }
 }

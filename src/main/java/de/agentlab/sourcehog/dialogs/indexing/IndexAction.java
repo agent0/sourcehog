@@ -1,7 +1,7 @@
 package de.agentlab.sourcehog.dialogs.indexing;
 
-import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
+import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.runner.IndexRunner;
 import de.agentlab.sourcehog.utils.ArrayUtils;
 import javafx.event.ActionEvent;
@@ -22,10 +22,12 @@ public class IndexAction {
 
     public void process(ActionEvent event, Stage stage) {
 
+        this.configuration.load();
         try {
             Dialog<ButtonType> indexDialog = new Dialog<>();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
             indexDialog.getDialogPane().setContent(loader.load());
+            IndexActionPopupController controller = loader.getController();
 
             ButtonType goButton = new ButtonType("Go!", ButtonBar.ButtonData.OK_DONE);
 
@@ -33,12 +35,14 @@ public class IndexAction {
                     goButton, ButtonType.CLOSE
             );
 
+            controller.setDbFileValue(this.configuration.getDatabase());
+            controller.setDirsValue(this.configuration.getSourceDirsAsString());
             Optional<ButtonType> result = null;
             result = indexDialog.showAndWait();
             if ((result.get()) == goButton) {
-                System.out.println("Go!");
-                IndexActionPopupController controller = loader.getController();
-                System.out.println(controller.getDbFileValue());
+                this.configuration.setDatabase(controller.getDbFileValue());
+                this.configuration.setSourceDirsFromString(controller.getDirsValue());
+                this.configuration.save();
             }
         } catch (IOException e) {
             e.printStackTrace();
