@@ -1,18 +1,23 @@
- #!/usr/bin/bash
+#!/usr/bin/bash
 
- if [ "$#" -lt 1 ]; then
-    echo "Please provide a command"
-    exit
+if [ "$#" -lt 2 ]; then
+  echo
+  echo "  usage: hog <command> <indexfile> searchterm | dirs"
+  echo
+
+  exit
 fi
- 
+
 if [ "$1" == "index" ]; then
-  rm d:/tmp/java.ctags
-  ctags -f d:/tmp/java.ctags --excmd=number --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified --exclude=*.min.js d:/Programming/Java
-  ctags -f d:/tmp/java.ctags --excmd=number --languages=javascript,html -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified  --exclude=*.min.js d:/Programming/Javascript
-  ctags -f d:/tmp/java.ctags --excmd=number --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified  --exclude=*.min.js d:/Projekte
+  rm $2
+
+  for i in "${@:3}"
+  do
+    echo "indexing $i"
+    ctags -f $2 --excmd=number --languages=java,javascript -a -R --fields=+n --exclude=tmp --exclude=lib --exclude=build --exclude=target --exclude=node_modules --exclude=dist --exclude=src-gen --exclude=minified --exclude=*.min.js $i
+  done
 fi
 
 if [ "$1" == "find" ]; then
-  cat d:/tmp/java.ctags | awk -F $'\t' -v pattern="$2" 'BEGIN{IGNORECASE = 1} $1 ~ pattern {print $1, $2, $3}' | sed -e 's/;"//' 
+  cat $2 | awk -F $'\t' -v pattern="$3" 'BEGIN{IGNORECASE = 1} $1 ~ pattern {print $1, $2, $3}' | sed -e 's/;"//'
 fi
- 
