@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.model;
 
 public class Configuration {
     private String database;

@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.runner;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

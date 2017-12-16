@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.runner;
 
 import java.io.IOException;
 import java.util.List;

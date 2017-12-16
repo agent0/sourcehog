@@ -1,11 +1,11 @@
 package de.agentlab.sourcehog.dialogs.indexing;
 
-import de.agentlab.sourcehog.Configuration;
-import de.agentlab.sourcehog.StringLiteralIndexer;
+import de.agentlab.sourcehog.model.Configuration;
+import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
+import de.agentlab.sourcehog.runner.IndexRunner;
 import de.agentlab.sourcehog.utils.ArrayUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -23,18 +23,18 @@ public class IndexAction {
     public void process(ActionEvent event, Stage stage) {
 
         try {
-            Dialog<ButtonType> settingsDialog = new Dialog<>();
+            Dialog<ButtonType> indexDialog = new Dialog<>();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
-            settingsDialog.getDialogPane().setContent((Parent) loader.load());
+            indexDialog.getDialogPane().setContent(loader.load());
 
             ButtonType goButton = new ButtonType("Go!", ButtonBar.ButtonData.OK_DONE);
 
-            settingsDialog.getDialogPane().getButtonTypes().addAll(
+            indexDialog.getDialogPane().getButtonTypes().addAll(
                     goButton, ButtonType.CLOSE
             );
 
             Optional<ButtonType> result = null;
-            result = settingsDialog.showAndWait();
+            result = indexDialog.showAndWait();
             if ((result.get()) == goButton) {
                 System.out.println("Go!");
                 IndexActionPopupController controller = loader.getController();

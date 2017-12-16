@@ -1,7 +1,7 @@
 package de.agentlab.sourcehog.dialogs.main;
 
-import de.agentlab.sourcehog.EditorRunner;
-import de.agentlab.sourcehog.QueryRunner;
+import de.agentlab.sourcehog.runner.EditorRunner;
+import de.agentlab.sourcehog.runner.QueryRunner;
 import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
 import de.agentlab.sourcehog.model.CTag;
 import javafx.event.ActionEvent;

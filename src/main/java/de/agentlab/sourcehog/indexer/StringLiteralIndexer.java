@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.indexer;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
