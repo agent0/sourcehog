@@ -42,7 +42,7 @@ public class StringLiteralIndexer {
     }
 
     public void indexFileContents(String filename, PrintStream out) {
-        System.out.println("Indexing " + filename);
+//        System.out.println("Indexing " + filename);
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line;

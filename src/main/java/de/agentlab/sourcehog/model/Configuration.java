@@ -93,6 +93,9 @@ public class Configuration {
             Properties props = new Properties();
             props.setProperty("database", this.database);
             props.setProperty("sourcedirs", this.getSourceDirsAsString());
+            props.setProperty("editorpath", this.getEditorpath());
+            props.setProperty("hogdir", this.getHogdir());
+            props.setProperty("cygwindir", this.getCygwindir());
             File f = new File(System.getProperty("user.home") + "\\sourcehog.properties");
             OutputStream out = new FileOutputStream(f);
             props.store(out, "");

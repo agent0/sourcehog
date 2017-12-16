@@ -4,6 +4,7 @@ import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
 import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.runner.IndexRunner;
 import de.agentlab.sourcehog.utils.ArrayUtils;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -15,14 +16,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executors;
 
 public class IndexAction {
 
-    private Configuration configuration = new Configuration();
+    private boolean running;
 
     public void process(ActionEvent event, Stage stage) {
+        if (this.running) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Already running ");
+            alert.setHeaderText(null);
+            alert.setContentText("Indexing allready in progress");
 
-        this.configuration.load();
+            alert.showAndWait();
+            return;
+        }
+        Configuration configuration = new Configuration();
+        configuration.load();
         try {
             Dialog<ButtonType> indexDialog = new Dialog<>();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
@@ -35,14 +46,14 @@ public class IndexAction {
                     goButton, ButtonType.CLOSE
             );
 
-            controller.setDbFileValue(this.configuration.getDatabase());
-            controller.setDirsValue(this.configuration.getSourceDirsAsString());
+            controller.setDbFileValue(configuration.getDatabase());
+            controller.setDirsValue(configuration.getSourceDirsAsString());
             Optional<ButtonType> result = null;
             result = indexDialog.showAndWait();
             if ((result.get()) == goButton) {
-                this.configuration.setDatabase(controller.getDbFileValue());
-                this.configuration.setSourceDirsFromString(controller.getDirsValue());
-                this.configuration.save();
+                configuration.setDatabase(controller.getDbFileValue());
+                configuration.setSourceDirsFromString(controller.getDirsValue());
+                configuration.save();
 
                 this.run();
             }
@@ -53,18 +64,34 @@ public class IndexAction {
 
 
     private void run() {
-        String[] params = ArrayUtils.join(this.configuration.getDatabase(), this.configuration.getSourcedirs());
+        this.running = true;
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Configuration configuration = new Configuration();
+                configuration.load();
 
-        List<String> result = new IndexRunner().run(params);
-        System.out.println(result);
+                String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
 
-        new StringLiteralIndexer().index(this.configuration.getDatabase(), this.configuration.getSourcedirs());
+                List<String> result = new IndexRunner().run(params);
+                System.out.println(result);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Done");
-        alert.setHeaderText(null);
-        alert.setContentText("Indexing complete");
+                new StringLiteralIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
 
-        alert.showAndWait();
+                IndexAction.this.running = false;
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(t -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Done");
+            alert.setHeaderText(null);
+            alert.setContentText("Indexing complete");
+
+            alert.showAndWait();
+        });
+
+        Executors.newCachedThreadPool().submit(task);
     }
 }
