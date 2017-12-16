@@ -19,6 +19,8 @@ public class Controller implements Initializable {
     @FXML
     private TableView<CTag> tableView;
 
+    private IndexAction indexAction = new IndexAction();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tableView.setOnMousePressed(e -> {
@@ -49,5 +51,10 @@ public class Controller implements Initializable {
     @FXML
     private void handleExitAction(final ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    private void handleIndexAction(final ActionEvent event) {
+        this.indexAction.process(event);
     }
 }
