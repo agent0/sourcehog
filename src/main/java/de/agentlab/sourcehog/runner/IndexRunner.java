@@ -1,18 +1,15 @@
 package de.agentlab.sourcehog.runner;
 
-import java.io.IOException;
-import java.util.List;
+import de.agentlab.sourcehog.model.Configuration;
 
 public class IndexRunner extends AbstractRunner {
 
-    public static void main(String argv[]) throws IOException {
-        List<String> result = new IndexRunner().run("d:/tmp/java.ctags", "d:/Programming/Java", "d:/Programming/Javascript");
-        System.out.println(result);
-    }
-
     @Override
     public String[] getEnv() {
-        return new String[]{"path=%PATH%;C:/Software/bin/;C:/Users/jli/.babun/cygwin/bin/"};
+        Configuration configuration = new Configuration();
+        configuration.load();
+
+        return new String[]{"path=%PATH%;" + configuration.getHogdir() + ";" + configuration.getCygwindir()};
     }
 
     @Override
@@ -21,6 +18,10 @@ public class IndexRunner extends AbstractRunner {
         for (int i = 1; i < params.length; i++) {
             dirs += params[i] + " ";
         }
-        return new String[]{"C:/Users/jli/.babun/cygwin/bin/bash.exe", "-c", "hog index " + params[0] + " " + dirs};
+
+        Configuration configuration = new Configuration();
+        configuration.load();
+
+        return new String[]{configuration.getCygwindir() + "/bash.exe", "-c", "hog index " + params[0] + " " + dirs};
     }
 }

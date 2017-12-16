@@ -9,11 +9,14 @@ import java.util.Properties;
 
 public class Configuration {
     private String database;
-    private String[] sourceDirs;
+    private String[] sourcedirs;
+    private String editorpath;
+    private String hogdir;
+    private String cygwindir;
 
     public Configuration() {
         this.database = "d:/tmp/sourcehog.db";
-        this.sourceDirs = new String[]{"d:/Programming/Java", "d:/Programming/Javascript"};
+        this.sourcedirs = new String[]{"d:/Programming/Java", "d:/Programming/Javascript"};
     }
 
     public String getDatabase() {
@@ -24,12 +27,46 @@ public class Configuration {
         this.database = database;
     }
 
-    public String[] getSourceDirs() {
-        return sourceDirs;
+    public String[] getSourcedirs() {
+        return sourcedirs;
     }
 
-    public void setSourceDirs(String[] sourceDirs) {
-        this.sourceDirs = sourceDirs;
+    public void setSourcedirs(String[] sourcedirs) {
+        this.sourcedirs = sourcedirs;
+    }
+
+    public String getSourceDirsAsString() {
+        return String.join(";", this.getSourcedirs());
+    }
+
+    public void setSourceDirsFromString(String dirs) {
+        if (dirs != null) {
+            this.sourcedirs = dirs.split("\\s*;\\s*");
+        }
+    }
+
+    public String getEditorpath() {
+        return editorpath;
+    }
+
+    public void setEditorpath(String editorpath) {
+        this.editorpath = editorpath;
+    }
+
+    public String getHogdir() {
+        return hogdir;
+    }
+
+    public void setHogdir(String hogdir) {
+        this.hogdir = hogdir;
+    }
+
+    public String getCygwindir() {
+        return cygwindir;
+    }
+
+    public void setCygwindir(String cygwindir) {
+        this.cygwindir = cygwindir;
     }
 
     public void load() {
@@ -44,8 +81,11 @@ public class Configuration {
             is = null;
         }
 
-        this.database = props.getProperty("database", System.getProperty("user.home") + "\\sourcehog.db");
+        this.setDatabase(props.getProperty("database", System.getProperty("user.home") + "\\sourcehog.db"));
         this.setSourceDirsFromString(props.getProperty("sourcedirs"));
+        this.setEditorpath(props.getProperty("editorpath", ""));
+        this.setHogdir(props.getProperty("hogdir", ""));
+        this.setCygwindir(props.getProperty("cygwindir", ""));
     }
 
     public void save() {
@@ -61,13 +101,4 @@ public class Configuration {
         }
     }
 
-    public String getSourceDirsAsString() {
-        return String.join(";", this.getSourceDirs());
-    }
-
-    public void setSourceDirsFromString(String dirs) {
-        if (dirs != null) {
-            this.sourceDirs = dirs.split("\\s*;\\s*");
-        }
-    }
 }

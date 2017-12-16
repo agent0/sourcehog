@@ -7,7 +7,6 @@ import java.util.List;
 
 public class QueryRunner extends AbstractRunner {
 
-    private Configuration configuration = new Configuration();
 
     public static void main(String argv[]) throws IOException {
         List<String> result = new QueryRunner().run();
@@ -16,11 +15,17 @@ public class QueryRunner extends AbstractRunner {
 
     @Override
     public String[] getEnv() {
-        return new String[]{"path=%PATH%;C:/Software/bin/;C:/Users/jli/.babun/cygwin/bin/"};
+        Configuration configuration = new Configuration();
+        configuration.load();
+
+        return new String[]{"path=%PATH%;" + configuration.getHogdir() + ";" + configuration.getCygwindir()};
     }
 
     @Override
     public String[] getCommandline(String... params) {
-        return new String[]{"C:/Users/jli/.babun/cygwin/bin/bash.exe", "-c", "hog find " + this.configuration.getDatabase() + " " + params[0]};
+        Configuration configuration = new Configuration();
+        configuration.load();
+
+        return new String[]{configuration.getCygwindir() + "/bash.exe", "-c", "hog find " + configuration.getDatabase() + " " + params[0]};
     }
 }

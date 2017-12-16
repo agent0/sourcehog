@@ -43,6 +43,8 @@ public class IndexAction {
                 this.configuration.setDatabase(controller.getDbFileValue());
                 this.configuration.setSourceDirsFromString(controller.getDirsValue());
                 this.configuration.save();
+
+                this.run();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,12 +53,12 @@ public class IndexAction {
 
 
     private void run() {
-        String[] params = ArrayUtils.join(this.configuration.getDatabase(), this.configuration.getSourceDirs());
+        String[] params = ArrayUtils.join(this.configuration.getDatabase(), this.configuration.getSourcedirs());
 
         List<String> result = new IndexRunner().run(params);
         System.out.println(result);
 
-        new StringLiteralIndexer().index(this.configuration.getDatabase(), this.configuration.getSourceDirs());
+        new StringLiteralIndexer().index(this.configuration.getDatabase(), this.configuration.getSourcedirs());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Done");
