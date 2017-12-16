@@ -1,4 +1,6 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.dialogs.indexing;
+
+import de.agentlab.sourcehog.AbstractRunner;
 
 import java.io.IOException;
 import java.util.List;

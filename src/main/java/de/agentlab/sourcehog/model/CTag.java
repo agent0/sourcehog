@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.model;
 
 import javafx.beans.property.SimpleStringProperty;
 

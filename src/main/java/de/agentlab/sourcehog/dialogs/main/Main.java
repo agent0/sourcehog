@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.dialogs.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 400));
         primaryStage.show();
 
-        Controller controller = (Controller) loader.getController();
+        MainController controller = (MainController) loader.getController();
         controller.setStage(primaryStage);
     }
 

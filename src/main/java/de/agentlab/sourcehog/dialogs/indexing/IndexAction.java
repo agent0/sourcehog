@@ -1,5 +1,8 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.dialogs.indexing;
 
+import de.agentlab.sourcehog.utils.ArrayUtils;
+import de.agentlab.sourcehog.Configuration;
+import de.agentlab.sourcehog.StringLiteralIndexer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +21,7 @@ public class IndexAction {
     public void process(ActionEvent event, Stage stage) {
 
         try {
-            Dialog<Settings> settingsDialog = new Dialog<>();
+            Dialog<IndexActionForm> settingsDialog = new Dialog<>();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
             settingsDialog.getDialogPane().setContent((Parent) loader.load());

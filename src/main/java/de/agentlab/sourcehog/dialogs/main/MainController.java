@@ -1,5 +1,9 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.dialogs.main;
 
+import de.agentlab.sourcehog.EditorRunner;
+import de.agentlab.sourcehog.QueryRunner;
+import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
+import de.agentlab.sourcehog.model.CTag;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     public TextField searchterm;

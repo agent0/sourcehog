@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog;
+package de.agentlab.sourcehog.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
