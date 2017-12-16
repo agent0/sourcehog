@@ -7,10 +7,9 @@ import java.util.List;
 
 public class QueryRunner extends AbstractRunner {
 
-
     public static void main(String argv[]) throws IOException {
-        List<String> result = new QueryRunner().run();
-        System.out.println(result.size());
+        List<String> result = new QueryRunner().run("zoom");
+        System.out.println(result);
     }
 
     @Override
@@ -18,7 +17,7 @@ public class QueryRunner extends AbstractRunner {
         Configuration configuration = new Configuration();
         configuration.load();
 
-        return new String[]{"path=%PATH%;" + configuration.getHogdir() + ";" + configuration.getCygwindir()};
+        return new String[]{"path=%PATH%;C:/Software/bin/;C:/Users/jli/.babun/cygwin/bin/"};
     }
 
     @Override
