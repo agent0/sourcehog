@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog.dialogs.indexing;
+package de.agentlab.sourcehog.ui.indexing;
 
 import de.agentlab.sourcehog.indexer.CSSIndexer;
 import de.agentlab.sourcehog.indexer.JavaIndexer;

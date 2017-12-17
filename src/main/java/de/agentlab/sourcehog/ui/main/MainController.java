@@ -1,6 +1,6 @@
-package de.agentlab.sourcehog.dialogs.main;
+package de.agentlab.sourcehog.ui.main;
 
-import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
+import de.agentlab.sourcehog.ui.indexing.IndexAction;
 import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;

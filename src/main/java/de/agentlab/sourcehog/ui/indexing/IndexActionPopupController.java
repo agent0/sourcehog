@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog.dialogs.indexing;
+package de.agentlab.sourcehog.ui.indexing;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

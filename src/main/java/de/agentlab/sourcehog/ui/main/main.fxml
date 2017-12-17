@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="de.agentlab.sourcehog.dialogs.main.MainController">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="de.agentlab.sourcehog.ui.main.MainController">
     <MenuBar fx:id="menuBar">
         <menus>
             <Menu text="File">

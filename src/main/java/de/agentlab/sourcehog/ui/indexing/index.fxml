@@ -3,7 +3,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 <DialogPane prefWidth="600.0" prefHeight="100.0" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="de.agentlab.sourcehog.dialogs.indexing.IndexActionPopupController">
+            fx:controller="de.agentlab.sourcehog.ui.indexing.IndexActionPopupController">
     <content>
         <GridPane alignment="center" hgap="10" vgap="10">
 
