@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QueryEngineNF {
+public class QueryEngine {
 
     public static void main(String[] args) {
-        List<CTag> result = new QueryEngineNF().find("zoom");
+        List<CTag> result = new QueryEngine().find("zoom");
         System.out.println(result);
     }
 

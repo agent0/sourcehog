@@ -2,7 +2,7 @@ package de.agentlab.sourcehog.dialogs.main;
 
 import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
 import de.agentlab.sourcehog.model.CTag;
-import de.agentlab.sourcehog.query.QueryEngineNF;
+import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,7 +63,7 @@ public class MainController implements Initializable {
 
         alert.show();
 
-        List<CTag> result = new QueryEngineNF().find(term);
+        List<CTag> result = new QueryEngine().find(term);
 
         alert.close();
         tableView.getItems().clear();
