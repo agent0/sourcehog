@@ -14,7 +14,6 @@ import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 
@@ -72,9 +71,9 @@ public class IndexAction {
                 configuration.load();
 
                 String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
+                new IndexRunner().run(params);
 
-                List<String> result = new IndexRunner().run(params);
-                System.out.println(result);
+//                new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
 
                 new StringLiteralIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
 

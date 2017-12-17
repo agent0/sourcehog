@@ -1,44 +1,19 @@
 package de.agentlab.sourcehog.indexer;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringLiteralIndexer {
+public class StringLiteralIndexer extends AbstractIndexer {
+
+    public static final String LITERAL_REGEX = "\"([^\"]*)\"";
 
     public static void main(String[] args) {
         StringLiteralIndexer stringLiteralIndexer = new StringLiteralIndexer();
         stringLiteralIndexer.index(null, args);
-    }
-
-    public void index(String outfilename, String... dirs) {
-        StringLiteralIndexer stringLiteralIndexer = new StringLiteralIndexer();
-        PrintStream out;
-        try {
-
-            if (outfilename == null) {
-                out = System.out;
-            } else {
-                out = new PrintStream(new FileOutputStream(outfilename, true));
-            }
-
-            for (String dir : dirs) {
-                Files.walk(Paths.get(dir))
-                        .filter(f -> Files.isRegularFile(f) && f.toString().endsWith("java"))
-                        .forEach(f -> stringLiteralIndexer.indexFileContents(f.toAbsolutePath().toString(), out));
-            }
-            out.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void indexFileContents(String filename, PrintStream out) {
@@ -49,7 +24,7 @@ public class StringLiteralIndexer {
                 int index = 1;
                 while ((line = br.readLine()) != null) {
 
-                    Pattern p = Pattern.compile("\"([^\"]*)\"");
+                    Pattern p = Pattern.compile(LITERAL_REGEX);
                     Matcher m = p.matcher(line);
                     while (m.find()) {
                         String text = m.group(1);
