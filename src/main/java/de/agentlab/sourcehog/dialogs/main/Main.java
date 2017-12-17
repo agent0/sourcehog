@@ -1,10 +1,14 @@
 package de.agentlab.sourcehog.dialogs.main;
 
+import de.agentlab.sourcehog.model.IndexEntry;
+import de.agentlab.sourcehog.query.QueryEngine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Main extends Application {
 
@@ -25,11 +29,14 @@ public class Main extends Application {
             String command = args[0];
             if (command.equals("index")) {
                 System.out.println("index");
-
-            } else if (command.equals("lindex")) {
-
             } else if (command.equals("find")) {
+                List<IndexEntry> result = new QueryEngine().find(args[1]);
 
+                for (IndexEntry entry : result) {
+                    System.out.println(entry.getTag() + " " + entry.getFile() + " " + entry.getLine());
+                }
+
+                System.exit(1);
             }
         } else {
             launch(args);
