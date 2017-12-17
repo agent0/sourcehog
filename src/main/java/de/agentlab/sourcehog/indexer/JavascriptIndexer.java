@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class JavascriptIndexer extends AbstractIndexer {
 
-    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "node_modules", "dist", "tmp", "src-gen", "minified"};
+    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "branches", "node_modules", "dist", "tmp", "src-gen", "minified"};
     private static String[] exclude_ext = new String[]{"min.js"};
     private static String[] include_ext = new String[]{"js"};
 

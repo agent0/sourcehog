@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class JavaIndexer extends AbstractIndexer {
 
-    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "node_modules", "dist", "tmp", "src-gen", "minified"};
+    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "branches", "node_modules", "dist", "tmp", "src-gen", "minified"};
     private static String[] exclude_ext = new String[]{};
     private static String[] include_ext = new String[]{"java"};
 
