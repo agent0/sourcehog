@@ -1,13 +1,19 @@
 package de.agentlab.sourcehog.indexer;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class AbstractIndexer {
+    protected static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "branches", "node_modules", "bower_components", "dist", "tmp", "src-gen", "minified"};
 
     protected boolean accept(Path f) {
         if (excludePath(f.toString())) {
@@ -80,8 +86,50 @@ public abstract class AbstractIndexer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+    public void indexFileContents(String filename, PrintStream out) {
+        out.println("_" + "SH" + "__FILE__" + filename);
+        try {
+            try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+                String line;
+                int index = 0;
+
+                while ((line = br.readLine()) != null) {
+                    index++;
+
+                    if (skip(line)) {
+                        continue;
+                    }
+
+                    String sanitized = line.replaceAll(getSanitationRegex(), " ");
+
+                    if (line.trim().length() == 0) {
+                        continue;
+                    }
+
+                    Set<String> tags = new HashSet<>();
+
+                    String[] split = sanitized.split("\\s+");
+                    for (String s : split) {
+                        if (getKeywordMap().containsKey(s)) {
+                            continue;
+                        }
+                        if (s.length() > 3) {
+                            tags.add(s);
+                        }
+                    }
+                    for (String tag : tags) {
+                        out.println(tag + "\t" + index);
+
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     protected abstract String[] getIncludeExt();
 
@@ -89,5 +137,11 @@ public abstract class AbstractIndexer {
 
     protected abstract String[] getExcludeDirs();
 
-    public abstract void indexFileContents(String filename, PrintStream out);
+    protected abstract boolean skip(String line);
+
+    protected abstract String getSanitationRegex();
+
+    protected abstract Map<String, String> getKeywordMap();
+
+
 }
