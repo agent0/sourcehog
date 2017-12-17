@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 public class QueryEngine {
@@ -32,7 +33,9 @@ public class QueryEngine {
                 if (line.startsWith("_SH")) {
                     curfile = line.substring(11);
                 } else {
-                    String[] dbfields = line.split("\\t");
+                    StringTokenizer st = new StringTokenizer(line, "\t", false);
+
+                    String[] dbfields = new String[]{st.nextToken(), st.nextToken()};
                     if (CommonUtils.containsIgnoreCase(dbfields[0], split[0])) {
 
                         IndexEntry indexEntry = new IndexEntry(dbfields[0], curfile, dbfields[1]);
