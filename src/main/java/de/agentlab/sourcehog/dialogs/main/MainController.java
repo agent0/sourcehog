@@ -8,6 +8,7 @@ import de.agentlab.sourcehog.runner.EditorRunner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -56,6 +57,13 @@ public class MainController implements Initializable {
 
     private void search(String term) {
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Searching...");
+        alert.setHeaderText(null);
+        alert.setContentText("Searching...");
+
+        alert.show();
+
         List<CTag> result;
         if (Main.FORMAT.equals("N")) {
             result = new QueryEngineNF().find(term);
@@ -63,6 +71,7 @@ public class MainController implements Initializable {
             result = new QueryEngine().find(term);
         }
 
+        alert.close();
         tableView.getItems().clear();
         tableView.getItems().addAll(result);
     }
