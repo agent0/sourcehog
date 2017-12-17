@@ -1,6 +1,6 @@
 package de.agentlab.sourcehog.query;
 
-import de.agentlab.sourcehog.dialogs.main.CommonUtils;
+import de.agentlab.sourcehog.utils.CommonUtils;
 import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.model.IndexEntry;
 

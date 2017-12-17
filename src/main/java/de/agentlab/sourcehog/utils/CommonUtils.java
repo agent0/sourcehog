@@ -1,4 +1,4 @@
-package de.agentlab.sourcehog.dialogs.main;
+package de.agentlab.sourcehog.utils;
 
 public class CommonUtils {
     public static boolean containsIgnoreCase(String s, String p) {
