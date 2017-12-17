@@ -1,7 +1,7 @@
 package de.agentlab.sourcehog.dialogs.main;
 
 import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
-import de.agentlab.sourcehog.model.CTag;
+import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
 import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ public class MainController implements Initializable {
     public TextField searchterm;
 
     @FXML
-    private TableView<CTag> tableView;
+    private TableView<IndexEntry> tableView;
 
     private IndexAction indexAction = new IndexAction();
     private Stage stage;
@@ -33,8 +33,8 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tableView.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-                CTag ctag = tableView.getSelectionModel().getSelectedItem();
-                new EditorRunner().run(ctag.getFile(), ctag.getLine());
+                IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
+                new EditorRunner().run(entry.getFile(), entry.getLine());
             }
         });
     }
@@ -63,7 +63,7 @@ public class MainController implements Initializable {
 
         alert.show();
 
-        List<CTag> result = new QueryEngine().find(term);
+        List<IndexEntry> result = new QueryEngine().find(term);
 
         alert.close();
         tableView.getItems().clear();
@@ -84,8 +84,8 @@ public class MainController implements Initializable {
     private void handleKeyRelease(final KeyEvent event) {
         KeyCode key = event.getCode();
         if (key == KeyCode.ENTER) {
-            CTag ctag = tableView.getSelectionModel().getSelectedItem();
-            new EditorRunner().run(ctag.getFile(), ctag.getLine());
+            IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
+            new EditorRunner().run(entry.getFile(), entry.getLine());
         }
     }
 }

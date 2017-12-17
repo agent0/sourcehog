@@ -1,8 +1,8 @@
 package de.agentlab.sourcehog.query;
 
 import de.agentlab.sourcehog.dialogs.main.CommonUtils;
-import de.agentlab.sourcehog.model.CTag;
 import de.agentlab.sourcehog.model.Configuration;
+import de.agentlab.sourcehog.model.IndexEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,17 +13,17 @@ import java.util.stream.Collectors;
 public class QueryEngine {
 
     public static void main(String[] args) {
-        List<CTag> result = new QueryEngine().find("zoom");
+        List<IndexEntry> result = new QueryEngine().find("zoom");
         System.out.println(result);
     }
 
-    public List<CTag> find(String query) {
+    public List<IndexEntry> find(String query) {
         Configuration configuration = new Configuration();
         configuration.load();
 
         String[] split = query.split("\\s+");
 
-        List<CTag> result = new ArrayList<>();
+        List<IndexEntry> result = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(configuration.getDatabase()));
             String line;
@@ -35,8 +35,8 @@ public class QueryEngine {
                     String[] dbfields = line.split("\\t");
                     if (CommonUtils.containsIgnoreCase(dbfields[0], split[0])) {
 
-                        CTag cTag = new CTag(dbfields[0], curfile, dbfields[1]);
-                        result.add(cTag);
+                        IndexEntry indexEntry = new IndexEntry(dbfields[0], curfile, dbfields[1]);
+                        result.add(indexEntry);
                     }
                 }
             }
@@ -44,11 +44,11 @@ public class QueryEngine {
             e.printStackTrace();
         }
 
-        return result.stream().filter(ctag -> {
+        return result.stream().filter(entry -> {
             if (split.length == 1) {
                 return true;
             } else if (split.length == 2) {
-                return CommonUtils.containsIgnoreCase(ctag.getFile(), split[1]);
+                return CommonUtils.containsIgnoreCase(entry.getFile(), split[1]);
             } else {
                 return true;
             }

@@ -2,23 +2,23 @@ package de.agentlab.sourcehog.model;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class CTag {
+public class IndexEntry {
 
     private final SimpleStringProperty tagProperty = new SimpleStringProperty("");
     private final SimpleStringProperty fileProperty = new SimpleStringProperty("");
     private final SimpleStringProperty lineProperty = new SimpleStringProperty("");
 
-    public CTag() {
+    public IndexEntry() {
         this("", "", "");
     }
 
-    public CTag(String tag, String file, String line) {
+    public IndexEntry(String tag, String file, String line) {
         setTag(tag);
         setFile(file);
         setLine(line);
     }
 
-    public CTag(String line) {
+    public IndexEntry(String line) {
         String[] split = line.split(" ");
         setTag(split[0]);
         setFile(split[1]);
@@ -51,7 +51,7 @@ public class CTag {
 
     @Override
     public String toString() {
-        return "CTag{" +
+        return "IndexEntry{" +
                 "tag=" + tagProperty.get() +
                 ", file=" + fileProperty.get() +
                 ", line=" + lineProperty.get() +
