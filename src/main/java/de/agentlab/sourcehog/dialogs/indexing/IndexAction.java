@@ -1,14 +1,10 @@
 package de.agentlab.sourcehog.dialogs.indexing;
 
-import de.agentlab.sourcehog.dialogs.main.Main;
 import de.agentlab.sourcehog.indexer.CSSIndexer;
 import de.agentlab.sourcehog.indexer.JavaIndexer;
 import de.agentlab.sourcehog.indexer.JavascriptIndexer;
-import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
 import de.agentlab.sourcehog.indexer.TypescriptIndexer;
 import de.agentlab.sourcehog.model.Configuration;
-import de.agentlab.sourcehog.runner.IndexRunner;
-import de.agentlab.sourcehog.utils.ArrayUtils;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -78,21 +74,14 @@ public class IndexAction {
                 Configuration configuration = new Configuration();
                 configuration.load();
 
-                if (Main.FORMAT.equals("N")) {
-                    Path path = Paths.get(configuration.getDatabase());
-                    if (Files.isRegularFile(path)) {
-                        Files.delete(path);
-                    }
-                    new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                    new JavascriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                    new TypescriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                    new CSSIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                } else {
-                    String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
-                    new IndexRunner().run(params);
-
-                    new StringLiteralIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                Path path = Paths.get(configuration.getDatabase());
+                if (Files.isRegularFile(path)) {
+                    Files.delete(path);
                 }
+                new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                new JavascriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                new TypescriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                new CSSIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
 
                 IndexAction.this.running = false;
                 return null;

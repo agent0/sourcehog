@@ -11,8 +11,6 @@ public class Configuration {
     private String database;
     private String[] sourcedirs;
     private String editorpath;
-    private String hogdir;
-    private String cygwindir;
 
     public Configuration() {
         this.database = "d:/tmp/sourcehog.db";
@@ -53,22 +51,6 @@ public class Configuration {
         this.editorpath = editorpath;
     }
 
-    public String getHogdir() {
-        return hogdir;
-    }
-
-    public void setHogdir(String hogdir) {
-        this.hogdir = hogdir;
-    }
-
-    public String getCygwindir() {
-        return cygwindir;
-    }
-
-    public void setCygwindir(String cygwindir) {
-        this.cygwindir = cygwindir;
-    }
-
     public void load() {
         Properties props = new Properties();
         InputStream is = null;
@@ -84,8 +66,6 @@ public class Configuration {
         this.setDatabase(props.getProperty("database", System.getProperty("user.home") + "\\sourcehog.db"));
         this.setSourceDirsFromString(props.getProperty("sourcedirs"));
         this.setEditorpath(props.getProperty("editorpath", ""));
-        this.setHogdir(props.getProperty("hogdir", ""));
-        this.setCygwindir(props.getProperty("cygwindir", ""));
     }
 
     public void save() {
@@ -94,8 +74,6 @@ public class Configuration {
             props.setProperty("database", this.database);
             props.setProperty("sourcedirs", this.getSourceDirsAsString());
             props.setProperty("editorpath", this.getEditorpath());
-            props.setProperty("hogdir", this.getHogdir());
-            props.setProperty("cygwindir", this.getCygwindir());
             File f = new File(System.getProperty("user.home") + "\\sourcehog.properties");
             OutputStream out = new FileOutputStream(f);
             props.store(out, "");
