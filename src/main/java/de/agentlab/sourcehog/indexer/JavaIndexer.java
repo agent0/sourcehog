@@ -12,6 +12,10 @@ import java.util.Set;
 
 public class JavaIndexer extends AbstractIndexer {
 
+    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "node_modules", "dist", "tmp", "src-gen", "minified"};
+    private static String[] exclude_ext = new String[]{};
+    private static String[] include_ext = new String[]{"java"};
+
     private static String[] keywords = new String[]{"abstract", "continue", "for", "new", "switch", "assert", "default", "goto", "package", "synchronized", "boolean", "do", "if", "private", "this", "break", "double", "implements", "protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum", "instanceof", "return", "transient", "catch", "extends", "int", "short", "try", "char", "final", "interface", "static", "void", "class", "finally", "long", "strictfp", "volatile", "const", "float", "native", "super", "while"};
     private static Map<String, String> keywordMap = new HashMap<>();
 
@@ -23,9 +27,16 @@ public class JavaIndexer extends AbstractIndexer {
         new JavaIndexer().index(null, "D:\\Programming\\Java\\sourcehog\\src\\main\\java\\de\\agentlab\\sourcehog");
     }
 
-    @Override
-    protected String getExtension() {
-        return "java";
+    public String[] getExcludeExt() {
+        return exclude_ext;
+    }
+
+    public String[] getExcludeDirs() {
+        return exclude_dirs;
+    }
+
+    public String[] getIncludeExt() {
+        return include_ext;
     }
 
     public void indexFileContents(String filename, PrintStream out) {

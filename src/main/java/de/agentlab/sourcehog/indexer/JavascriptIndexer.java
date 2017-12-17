@@ -12,6 +12,10 @@ import java.util.Set;
 
 public class JavascriptIndexer extends AbstractIndexer {
 
+    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "node_modules", "dist", "tmp", "src-gen", "minified"};
+    private static String[] exclude_ext = new String[]{"min.js"};
+    private static String[] include_ext = new String[]{"js"};
+
     private static String[] keywords = new String[]{"abstract", "arguments", "await*", "boolean", "break", "byte", "case", "catch", "char", "class*", "const", "continue", "debugger", "default", "delete", "do", "double", "else", "enum*", "eval", "export*", "extends*", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import*", "in", "instanceof", "int", "interface", "let*", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super*", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "var", "void", "volatile", "while", "with", "yield"};
     private static Map<String, String> keywordMap = new HashMap<>();
 
@@ -20,16 +24,25 @@ public class JavascriptIndexer extends AbstractIndexer {
     }
 
     public static void main(String[] args) {
-        new JavascriptIndexer().index(null, "D:\\Projekte\\BMW\\AIDA\\Anwendung\\aida-project\\aida-client\\aida-client-ui\\src\\main\\webapp\\views");
+        new JavascriptIndexer().index(null, "d:\\Programming\\Java\\Sandbox");
     }
 
-    @Override
-    protected String getExtension() {
-        return "js";
+    public String[] getExcludeExt() {
+        return exclude_ext;
+    }
+
+    public String[] getExcludeDirs() {
+        return exclude_dirs;
+    }
+
+    public String[] getIncludeExt() {
+        return include_ext;
     }
 
     public void indexFileContents(String filename, PrintStream out) {
-        out.println("_" + "SH" + "__FILE__" + filename);
+        if (out != null) {
+            out.println("_" + "SH" + "__FILE__" + filename);
+        }
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line;
@@ -56,8 +69,9 @@ public class JavascriptIndexer extends AbstractIndexer {
                         }
                     }
                     for (String tag : tags) {
-                        out.println(tag + "\t" + index);
-
+                        if (out != null) {
+                            out.println(tag + "\t" + index);
+                        }
                     }
                 }
             }

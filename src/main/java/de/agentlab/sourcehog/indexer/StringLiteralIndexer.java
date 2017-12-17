@@ -9,6 +9,10 @@ import java.util.regex.Pattern;
 
 public class StringLiteralIndexer extends AbstractIndexer {
 
+    private static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "node_modules", "dist", "tmp", "src-gen", "minified"};
+    private static String[] exclude_ext = new String[]{};
+    private static String[] include_ext = new String[]{"java"};
+
     public static final String LITERAL_REGEX = "\"([^\"]*)\"";
 
     public static void main(String[] args) {
@@ -16,9 +20,16 @@ public class StringLiteralIndexer extends AbstractIndexer {
         stringLiteralIndexer.index(null, args);
     }
 
-    @Override
-    protected String getExtension() {
-        return "java";
+    public String[] getExcludeExt() {
+        return exclude_ext;
+    }
+
+    public String[] getExcludeDirs() {
+        return exclude_dirs;
+    }
+
+    public String[] getIncludeExt() {
+        return include_ext;
     }
 
     public void indexFileContents(String filename, PrintStream out) {
