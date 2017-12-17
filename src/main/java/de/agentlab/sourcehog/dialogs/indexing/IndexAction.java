@@ -4,6 +4,7 @@ import de.agentlab.sourcehog.dialogs.main.Main;
 import de.agentlab.sourcehog.indexer.JavaIndexer;
 import de.agentlab.sourcehog.indexer.JavascriptIndexer;
 import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
+import de.agentlab.sourcehog.indexer.TypescriptIndexer;
 import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.runner.IndexRunner;
 import de.agentlab.sourcehog.utils.ArrayUtils;
@@ -83,6 +84,7 @@ public class IndexAction {
                     }
                     new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
                     new JavascriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                    new TypescriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
                 } else {
                     String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
                     new IndexRunner().run(params);
