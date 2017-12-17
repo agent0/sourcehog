@@ -2,6 +2,7 @@ package de.agentlab.sourcehog.dialogs.indexing;
 
 import de.agentlab.sourcehog.dialogs.main.Main;
 import de.agentlab.sourcehog.indexer.JavaIndexer;
+import de.agentlab.sourcehog.indexer.JavascriptIndexer;
 import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
 import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.runner.IndexRunner;
@@ -16,6 +17,9 @@ import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 
@@ -73,7 +77,12 @@ public class IndexAction {
                 configuration.load();
 
                 if (Main.FORMAT.equals("N")) {
+                    Path path = Paths.get(configuration.getDatabase());
+                    if (Files.isRegularFile(path)) {
+                        Files.delete(path);
+                    }
                     new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                    new JavascriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
                 } else {
                     String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
                     new IndexRunner().run(params);

@@ -20,7 +20,7 @@ public abstract class AbstractIndexer {
 
             for (String dir : dirs) {
                 Files.walk(Paths.get(dir))
-                        .filter(f -> Files.isRegularFile(f) && f.toString().endsWith("java"))
+                        .filter(f -> Files.isRegularFile(f) && f.toString().endsWith(getExtension()))
                         .forEach(f -> this.indexFileContents(f.toAbsolutePath().toString(), out));
             }
             out.close();
@@ -30,6 +30,8 @@ public abstract class AbstractIndexer {
         }
 
     }
+
+    protected abstract String getExtension();
 
     public abstract void indexFileContents(String filename, PrintStream out);
 }

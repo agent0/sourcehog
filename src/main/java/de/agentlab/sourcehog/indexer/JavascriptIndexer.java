@@ -10,9 +10,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class JavaIndexer extends AbstractIndexer {
+public class JavascriptIndexer extends AbstractIndexer {
 
-    private static String[] keywords = new String[]{"abstract", "continue", "for", "new", "switch", "assert", "default", "goto", "package", "synchronized", "boolean", "do", "if", "private", "this", "break", "double", "implements", "protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum", "instanceof", "return", "transient", "catch", "extends", "int", "short", "try", "char", "final", "interface", "static", "void", "class", "finally", "long", "strictfp", "volatile", "const", "float", "native", "super", "while"};
+    private static String[] keywords = new String[]{"abstract", "arguments", "await*", "boolean", "break", "byte", "case", "catch", "char", "class*", "const", "continue", "debugger", "default", "delete", "do", "double", "else", "enum*", "eval", "export*", "extends*", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import*", "in", "instanceof", "int", "interface", "let*", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super*", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "var", "void", "volatile", "while", "with", "yield"};
     private static Map<String, String> keywordMap = new HashMap<>();
 
     static {
@@ -20,12 +20,12 @@ public class JavaIndexer extends AbstractIndexer {
     }
 
     public static void main(String[] args) {
-        new JavaIndexer().index(null, "D:\\Programming\\Java\\sourcehog\\src\\main\\java\\de\\agentlab\\sourcehog");
+        new JavascriptIndexer().index(null, "D:\\Projekte\\BMW\\AIDA\\Anwendung\\aida-project\\aida-client\\aida-client-ui\\src\\main\\webapp\\views");
     }
 
     @Override
     protected String getExtension() {
-        return "java";
+        return "js";
     }
 
     public void indexFileContents(String filename, PrintStream out) {
@@ -38,12 +38,6 @@ public class JavaIndexer extends AbstractIndexer {
                 while ((line = br.readLine()) != null) {
                     index++;
 
-                    if (line.startsWith("package")) {
-                        continue;
-                    }
-                    if (line.startsWith("import")) {
-                        continue;
-                    }
                     String sanitized = line.replaceAll("[^A-Za-z0-9_]", " ");
 
                     if (line.trim().length() == 0) {

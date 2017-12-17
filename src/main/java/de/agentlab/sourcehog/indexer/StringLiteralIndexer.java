@@ -16,6 +16,11 @@ public class StringLiteralIndexer extends AbstractIndexer {
         stringLiteralIndexer.index(null, args);
     }
 
+    @Override
+    protected String getExtension() {
+        return "java";
+    }
+
     public void indexFileContents(String filename, PrintStream out) {
 //        System.out.println("Indexing " + filename);
         try {
