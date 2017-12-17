@@ -3,6 +3,7 @@ package de.agentlab.sourcehog.dialogs.main;
 import de.agentlab.sourcehog.dialogs.indexing.IndexAction;
 import de.agentlab.sourcehog.model.CTag;
 import de.agentlab.sourcehog.query.QueryEngine;
+import de.agentlab.sourcehog.query.QueryEngineNF;
 import de.agentlab.sourcehog.runner.EditorRunner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,19 +55,14 @@ public class MainController implements Initializable {
     }
 
     private void search(String term) {
-        String[] split = term.split("\\s+");
 
-        List<CTag> result = new QueryEngine().find(term);
+        List<CTag> result;
+        if (Main.FORMAT.equals("N")) {
+            result = new QueryEngineNF().find(term);
+        } else {
+            result = new QueryEngine().find(term);
+        }
 
-//        List<CTag> result = new QueryRunner().run(split[0]).stream().map(line -> new CTag(line)).filter(ctag -> {
-//            if (split.length == 1) {
-//                return true;
-//            } else if (split.length == 2) {
-//                return CommonUtils.containsIgnoreCase(ctag.getFile(), split[1]);
-//            } else {
-//                return true;
-//            }
-//        }).collect(Collectors.toList());
         tableView.getItems().clear();
         tableView.getItems().addAll(result);
     }

@@ -1,5 +1,7 @@
 package de.agentlab.sourcehog.dialogs.indexing;
 
+import de.agentlab.sourcehog.dialogs.main.Main;
+import de.agentlab.sourcehog.indexer.JavaIndexer;
 import de.agentlab.sourcehog.indexer.StringLiteralIndexer;
 import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.runner.IndexRunner;
@@ -70,12 +72,14 @@ public class IndexAction {
                 Configuration configuration = new Configuration();
                 configuration.load();
 
-                String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
-                new IndexRunner().run(params);
+                if (Main.FORMAT.equals("N")) {
+                    new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                } else {
+                    String[] params = ArrayUtils.join(configuration.getDatabase(), configuration.getSourcedirs());
+                    new IndexRunner().run(params);
 
-//                new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-
-                new StringLiteralIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                    new StringLiteralIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
+                }
 
                 IndexAction.this.running = false;
                 return null;

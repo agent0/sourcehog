@@ -24,10 +24,12 @@ public class JavaIndexer extends AbstractIndexer {
     }
 
     public void indexFileContents(String filename, PrintStream out) {
+        out.println("_" + "SH" + "__FILE__" + filename);
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line;
                 int index = 0;
+
                 while ((line = br.readLine()) != null) {
                     index++;
 
@@ -55,7 +57,7 @@ public class JavaIndexer extends AbstractIndexer {
                         }
                     }
                     for (String tag : tags) {
-                        out.println(tag + "\t" + filename + "\t" + index);
+                        out.println(tag + "\t" + index);
 
                     }
                 }

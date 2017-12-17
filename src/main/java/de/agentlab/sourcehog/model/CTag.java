@@ -53,7 +53,7 @@ public class CTag {
     public String toString() {
         return "CTag{" +
                 "tag=" + tagProperty.get() +
-                ", fileK=" + fileProperty.get() +
+                ", file=" + fileProperty.get() +
                 ", line=" + lineProperty.get() +
                 '}';
     }
