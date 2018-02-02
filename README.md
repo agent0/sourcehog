@@ -10,3 +10,12 @@ you can then search this index using case-insensitive string matching.
 
 Clicking on an entry of the result list will open Notepad++ on the line of the match.
 
+##Running Sourcehog
+
+```
+gradle build
+```
+
+```
+java -jar build/libs/sourcehog.jar
+```
