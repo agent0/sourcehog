@@ -10,6 +10,19 @@ you can then search this index using case-insensitive string matching.
 
 Clicking on an entry of the result list will open Notepad++ on the line of the match.
 
+## Indexing algorithm
+
+The indexing algorithm of sourcehog is a masterpiece of algorithmic beauty: basically,
+the indexer reads a line, then checks if this line should be indexed (for java files, for example, we do not index the `import` statements),
+the it replaces all non-alphanumeric characters with spaces, splits the line on spaces and for every word of more than
+three characters, it writes a line containing the keyword and the file location to the database. It is a very simple algorithm 
+that, up until now, produces quite satisfying results.
+
+## User settings
+
+The currently available settings are stored as standard Java properties and save in the directory that is returned by calling
+`System.getProperty("user.home")`. Obviously, it is plattform dependant what location this actually is.
+
 ## Running Sourcehog
 
 ```
