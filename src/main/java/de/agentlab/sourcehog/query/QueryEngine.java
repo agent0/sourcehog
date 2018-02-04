@@ -39,7 +39,7 @@ public class QueryEngine {
 
         Log.info("# db files " + callables.size());
 
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(callables.size());
         try {
             List<Future<List<IndexEntry>>> futures = executor.invokeAll(callables);
             for (Future<List<IndexEntry>> future : futures) {

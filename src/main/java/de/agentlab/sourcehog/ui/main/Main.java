@@ -16,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainController.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Sourcehog");
         primaryStage.setScene(new Scene(root, 1200, 800));

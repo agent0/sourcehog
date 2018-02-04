@@ -33,7 +33,7 @@ public class IndexAction {
         configuration.load();
         try {
             Dialog<ButtonType> indexDialog = new Dialog<>();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
+            FXMLLoader loader = new FXMLLoader(IndexAction.class.getResource("IndexAction.fxml"));
             indexDialog.getDialogPane().setContent(loader.load());
             IndexActionPopupController controller = loader.getController();
 
