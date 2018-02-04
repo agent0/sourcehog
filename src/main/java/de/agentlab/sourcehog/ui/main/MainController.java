@@ -1,9 +1,9 @@
 package de.agentlab.sourcehog.ui.main;
 
-import de.agentlab.sourcehog.ui.indexing.IndexAction;
 import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
+import de.agentlab.sourcehog.ui.indexing.IndexAction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,7 +63,7 @@ public class MainController implements Initializable {
 
         alert.show();
 
-        List<IndexEntry> result = new QueryEngine().find(term);
+        List<IndexEntry> result = new QueryEngine().find2(term);
 
         alert.close();
         tableView.getItems().clear();

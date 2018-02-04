@@ -39,8 +39,4 @@ public class JavascriptIndexer extends AbstractIndexer {
     protected Map<String, String> getKeywordMap() {
         return keywordMap;
     }
-
-    public static void main(String[] args) {
-        new JavascriptIndexer().index(null, "d:\\Programming\\Java\\Sandbox");
-    }
 }

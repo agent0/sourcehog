@@ -13,10 +13,6 @@ public class CSSIndexer extends AbstractIndexer {
         Arrays.stream(keywords).forEach(k -> keywordMap.put(k, k));
     }
 
-    public static void main(String[] args) {
-        new CSSIndexer().index(null, "D:\\Projekte\\BMW\\AIDA\\Anwendung\\aida-project");
-    }
-
     public String[] getExcludeDirs() {
         return exclude_dirs;
     }

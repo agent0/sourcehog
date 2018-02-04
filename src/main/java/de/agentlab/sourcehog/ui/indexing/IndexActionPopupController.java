@@ -5,21 +5,21 @@ import javafx.scene.control.TextField;
 
 public class IndexActionPopupController {
     @FXML
-    public TextField dbfile;
+    public TextField dbDir;
 
     @FXML
     public TextField dirs;
 
-    public String getDbFileValue() {
-        return this.dbfile.getText();
+    public String getDbDirValue() {
+        return this.dbDir.getText();
     }
 
     public String getDirsValue() {
         return this.dirs.getText();
     }
 
-    public void setDbFileValue(String value) {
-        this.dbfile.setText(value);
+    public void setDbDirValue(String value) {
+        this.dbDir.setText(value);
     }
 
     public void setDirsValue(String value) {

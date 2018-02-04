@@ -8,9 +8,12 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class AbstractIndexer {
     protected static String[] exclude_dirs = new String[]{".svn", ".git", ".idea", "lib", "build", "target", "branches", "node_modules", "bower_components", "dist", "tmp", "src-gen", "minified"};
@@ -64,29 +67,64 @@ public abstract class AbstractIndexer {
         return false;
     }
 
-
-    public void index(String outfilename, String... dirs) {
-        PrintStream out;
+    public void index2(String outdirname, String... dirs) {
         try {
+            String curOutfilename = getCurFilename(outdirname);
+            Path path = Paths.get(outdirname, curOutfilename);
 
-            if (outfilename != null) {
-                out = new PrintStream(new FileOutputStream(outfilename, true));
-            } else {
-                out = System.out;
-            }
+            PrintStream out = new PrintStream(new FileOutputStream(path.toFile(), true));
             for (String dir : dirs) {
-                Files.walk(Paths.get(dir))
+                List<Path> files = Files.walk(Paths.get(dir))
                         .filter(f -> accept(f)).filter(f -> Files.isRegularFile(f))
-                        .forEach(f -> this.indexFileContents(f.toAbsolutePath().toString(), out));
-            }
-            if (out != null) {
-                out.close();
-            }
+                        .collect(Collectors.toList());
 
+                for (Path fileToIndex : files) {
+                    if (Files.exists(path)) {
+                        long size = Files.size(path);
+                        if (size > 10 * 1000 * 1000) {
+                            out.close();
+                            path = Paths.get(outdirname, this.getNextFilename(outdirname));
+                            out = new PrintStream(new FileOutputStream(path.toFile(), true));
+                        }
+                    }
+                    this.indexFileContents(fileToIndex.toAbsolutePath().toString(), out);
+                }
+            }
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private String getCurFilename(String outdirname) {
+        return this.getDbFilename(outdirname, 0);
+    }
+
+    private String getNextFilename(String outdirname) {
+        return this.getDbFilename(outdirname, 1);
+    }
+
+    private String getDbFilename(String outdirname, int offset) {
+        Path path = Paths.get(outdirname);
+        try {
+            List<Path> files = Files.walk(path).sorted(Comparator.comparing(Path::getFileName)).collect(Collectors.toList());
+            int count = 0;
+            for (Path file : files) {
+                if (file.getFileName().toString().startsWith("sourcehog.db")) {
+                    count++;
+                }
+            }
+            if (count == 0) {
+                count = 1;
+            }
+            return "sourcehog.db." + (count + offset);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     public void indexFileContents(String filename, PrintStream out) {
         out.println("_" + "SH" + "__FILE__" + filename);

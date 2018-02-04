@@ -1,7 +1,9 @@
 package de.agentlab.sourcehog.ui.main;
 
+import de.agentlab.sourcehog.indexer.IndexEngine;
 import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
+import de.agentlab.sourcehog.utils.Log;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,9 +31,13 @@ public class Main extends Application {
             String command = args[0];
             if (command.equals("index")) {
                 System.out.println("index");
+                new IndexEngine().index2();
+                System.exit(1);
             } else if (command.equals("find")) {
-                List<IndexEntry> result = new QueryEngine().find(args[1]);
-
+                long start = System.currentTimeMillis();
+                List<IndexEntry> result = new QueryEngine().find2(args[1]);
+                long end = System.currentTimeMillis();
+                Log.info("find took " + (end - start) + "ms");
                 for (IndexEntry entry : result) {
                     System.out.println(entry.getTag() + " " + entry.getFile() + " " + entry.getLine());
                 }

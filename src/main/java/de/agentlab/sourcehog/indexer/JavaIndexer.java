@@ -42,8 +42,4 @@ public class JavaIndexer extends AbstractIndexer {
     protected Map<String, String> getKeywordMap() {
         return keywordMap;
     }
-
-    public static void main(String[] args) {
-        new JavaIndexer().index(null, "D:\\Programming\\Java\\sourcehog\\src\\main\\java\\de\\agentlab\\sourcehog");
-    }
 }

@@ -7,8 +7,8 @@
     <content>
         <GridPane alignment="center" hgap="10" vgap="10">
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="DB File"></Label>
-            <TextField fx:id="dbfile" minWidth="400" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="DB Directory"></Label>
+            <TextField fx:id="dbDir" minWidth="400" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
             <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Source Directories"></Label>
             <TextField fx:id="dirs" GridPane.columnIndex="1" GridPane.rowIndex="1"/>

@@ -42,8 +42,4 @@ public class TypescriptIndexer extends AbstractIndexer {
     protected Map<String, String> getKeywordMap() {
         return keywordMap;
     }
-
-    public static void main(String[] args) {
-        new TypescriptIndexer().index(null, "d:\\Programming\\Java\\Sandbox");
-    }
 }

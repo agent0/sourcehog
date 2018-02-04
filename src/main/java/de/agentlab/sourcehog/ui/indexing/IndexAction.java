@@ -1,9 +1,6 @@
 package de.agentlab.sourcehog.ui.indexing;
 
-import de.agentlab.sourcehog.indexer.CSSIndexer;
-import de.agentlab.sourcehog.indexer.JavaIndexer;
-import de.agentlab.sourcehog.indexer.JavascriptIndexer;
-import de.agentlab.sourcehog.indexer.TypescriptIndexer;
+import de.agentlab.sourcehog.indexer.IndexEngine;
 import de.agentlab.sourcehog.model.Configuration;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -15,9 +12,6 @@ import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 
@@ -49,12 +43,12 @@ public class IndexAction {
                     goButton, ButtonType.CLOSE
             );
 
-            controller.setDbFileValue(configuration.getDatabase());
+            controller.setDbDirValue(configuration.getDatabaseDir());
             controller.setDirsValue(configuration.getSourceDirsAsString());
             Optional<ButtonType> result = null;
             result = indexDialog.showAndWait();
             if ((result.get()) == goButton) {
-                configuration.setDatabase(controller.getDbFileValue());
+                configuration.setDatabaseDir(controller.getDbDirValue());
                 configuration.setSourceDirsFromString(controller.getDirsValue());
                 configuration.save();
 
@@ -71,18 +65,7 @@ public class IndexAction {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                Configuration configuration = new Configuration();
-                configuration.load();
-
-                Path path = Paths.get(configuration.getDatabase());
-                if (Files.isRegularFile(path)) {
-                    Files.delete(path);
-                }
-                new JavaIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                new JavascriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                new TypescriptIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-                new CSSIndexer().index(configuration.getDatabase(), configuration.getSourcedirs());
-
+                new IndexEngine().index2();
                 IndexAction.this.running = false;
                 return null;
             }
