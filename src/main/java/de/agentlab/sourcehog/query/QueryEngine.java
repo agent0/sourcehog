@@ -87,6 +87,7 @@ public class QueryEngine {
                     }
                 }
             }
+            br.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -4,6 +4,7 @@ import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
 import de.agentlab.sourcehog.ui.indexing.IndexAction;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -72,7 +73,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void handleExitAction(final ActionEvent event) {
-        System.exit(0);
+        Platform.exit();
     }
 
     @FXML
