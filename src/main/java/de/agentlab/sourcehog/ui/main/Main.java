@@ -38,9 +38,9 @@ public class Main extends Application {
                 List<IndexEntry> result = new QueryEngine().find2(args[1]);
                 long end = System.currentTimeMillis();
                 Log.info("find took " + (end - start) + "ms");
-                for (IndexEntry entry : result) {
-                    System.out.println(entry.getTag() + " " + entry.getFile() + " " + entry.getLine());
-                }
+//                for (IndexEntry entry : result) {
+//                    System.out.println(entry.getTag() + " " + entry.getFile() + " " + entry.getLine());
+//                }
 
                 System.exit(1);
             }

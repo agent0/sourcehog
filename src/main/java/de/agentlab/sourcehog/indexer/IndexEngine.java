@@ -15,10 +15,10 @@ public class IndexEngine {
 
         Log.info("indexing to database dir " + configuration.getDatabaseDir());
         this.deleteIndexFiles(configuration.getDatabaseDir());
-        new JavaIndexer().index2(configuration.getDatabaseDir(), configuration.getSourcedirs());
-        new JavascriptIndexer().index2(configuration.getDatabaseDir(), configuration.getSourcedirs());
-        new TypescriptIndexer().index2(configuration.getDatabaseDir(), configuration.getSourcedirs());
-        new CSSIndexer().index2(configuration.getDatabaseDir(), configuration.getSourcedirs());
+        new JavaIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new JavascriptIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new TypescriptIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new CSSIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
     }
 
     private void deleteIndexFiles(String databaseDir) {

@@ -8,7 +8,6 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +66,7 @@ public abstract class AbstractIndexer {
         return false;
     }
 
-    public void index2(String outdirname, String... dirs) {
+    public void index2(String outdirname, int maxFileSize, String... dirs) {
         try {
             String curOutfilename = getCurFilename(outdirname);
             Path path = Paths.get(outdirname, curOutfilename);
@@ -81,13 +80,13 @@ public abstract class AbstractIndexer {
                 for (Path fileToIndex : files) {
                     if (Files.exists(path)) {
                         long size = Files.size(path);
-                        if (size > 10 * 1000 * 1000) {
+                        if (size > maxFileSize) {
                             out.close();
                             path = Paths.get(outdirname, this.getNextFilename(outdirname));
                             out = new PrintStream(new FileOutputStream(path.toFile(), true));
                         }
                     }
-                    this.indexFileContents(fileToIndex.toAbsolutePath().toString(), out);
+                    this.indexFileContents(fileToIndex.toString(), out);
                 }
             }
             out.close();
@@ -107,13 +106,7 @@ public abstract class AbstractIndexer {
     private String getDbFilename(String outdirname, int offset) {
         Path path = Paths.get(outdirname);
         try {
-            List<Path> files = Files.walk(path).sorted(Comparator.comparing(Path::getFileName)).collect(Collectors.toList());
-            int count = 0;
-            for (Path file : files) {
-                if (file.getFileName().toString().startsWith("sourcehog.db")) {
-                    count++;
-                }
-            }
+            long count = Files.walk(path).filter(file -> file.getFileName().toString().startsWith("sourcehog.db")).count();
             if (count == 0) {
                 count = 1;
             }

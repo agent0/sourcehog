@@ -34,7 +34,7 @@ public class QueryEngine {
         List<Callable<List<IndexEntry>>> callables = new ArrayList<>();
 
         for (Path file : files) {
-            callables.add(() -> QueryEngine.this.find(query, Paths.get(configuration.getDatabaseDir(), file.getFileName().toString()).toAbsolutePath().toString()));
+            callables.add(() -> QueryEngine.this.find(query, Paths.get(configuration.getDatabaseDir(), file.getFileName().toString()).toString()));
         }
 
         Log.info("# db files " + callables.size());
