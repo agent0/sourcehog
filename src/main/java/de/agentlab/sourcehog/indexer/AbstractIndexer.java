@@ -66,7 +66,7 @@ public abstract class AbstractIndexer {
         return false;
     }
 
-    public void index2(String outdirname, int maxFileSize, String... dirs) {
+    public void index(String outdirname, int maxFileSize, String... dirs) {
         try {
             String curOutfilename = getCurFilename(outdirname);
             Path path = Paths.get(outdirname, curOutfilename);

@@ -64,7 +64,7 @@ public class MainController implements Initializable {
 
         alert.show();
 
-        List<IndexEntry> result = new QueryEngine().find2(term);
+        List<IndexEntry> result = new QueryEngine().find(term);
 
         alert.close();
         tableView.getItems().clear();

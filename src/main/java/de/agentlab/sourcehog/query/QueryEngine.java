@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class QueryEngine {
 
-    public List<IndexEntry> find2(String query) {
+    public List<IndexEntry> find(String query) {
         Configuration configuration = new Configuration();
         configuration.load();
         Log.info("find from " + configuration.getDatabaseDir());

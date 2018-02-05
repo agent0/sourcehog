@@ -31,11 +31,11 @@ public class Main extends Application {
             String command = args[0];
             if (command.equals("index")) {
                 System.out.println("index");
-                new IndexEngine().index2();
+                new IndexEngine().index();
                 System.exit(1);
             } else if (command.equals("find")) {
                 long start = System.currentTimeMillis();
-                List<IndexEntry> result = new QueryEngine().find2(args[1]);
+                List<IndexEntry> result = new QueryEngine().find(args[1]);
                 long end = System.currentTimeMillis();
                 Log.info("find took " + (end - start) + "ms");
 //                for (IndexEntry entry : result) {

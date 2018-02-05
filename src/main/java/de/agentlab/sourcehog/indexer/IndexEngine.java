@@ -9,16 +9,16 @@ import java.nio.file.Paths;
 
 public class IndexEngine {
 
-    public void index2() {
+    public void index() {
         Configuration configuration = new Configuration();
         configuration.load();
 
         Log.info("indexing to database dir " + configuration.getDatabaseDir());
         this.deleteIndexFiles(configuration.getDatabaseDir());
-        new JavaIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
-        new JavascriptIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
-        new TypescriptIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
-        new CSSIndexer().index2(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new JavaIndexer().index(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new JavascriptIndexer().index(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new TypescriptIndexer().index(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
+        new CSSIndexer().index(configuration.getDatabaseDir(), configuration.getMaxFileSize(), configuration.getSourcedirs());
     }
 
     private void deleteIndexFiles(String databaseDir) {

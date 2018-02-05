@@ -65,7 +65,7 @@ public class IndexAction {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                new IndexEngine().index2();
+                new IndexEngine().index();
                 IndexAction.this.running = false;
                 return null;
             }
