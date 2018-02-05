@@ -1,0 +1,22 @@
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<DialogPane prefWidth="600.0" prefHeight="100.0" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="de.agentlab.sourcehog.ui.configuration.ConfigurationPopupController">
+    <content>
+        <GridPane alignment="center" hgap="10" vgap="10">
+
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="DB Directory"></Label>
+            <TextField fx:id="dbDir" minWidth="400" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Source Directories"></Label>
+            <TextField fx:id="dirs" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Path to editor executable"></Label>
+            <TextField fx:id="editorpath" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        </GridPane>
+    </content>
+</DialogPane>
+

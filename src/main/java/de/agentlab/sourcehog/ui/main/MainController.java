@@ -1,9 +1,11 @@
 package de.agentlab.sourcehog.ui.main;
 
+import de.agentlab.sourcehog.model.Configuration;
 import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
 import de.agentlab.sourcehog.runner.ExplorerRunner;
+import de.agentlab.sourcehog.ui.configuration.ConfigurationAction;
 import de.agentlab.sourcehog.ui.indexing.IndexAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,6 +21,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,6 +34,7 @@ public class MainController implements Initializable {
     @FXML
     private TableView<IndexEntry> tableView;
 
+    private ConfigurationAction configurationAction = new ConfigurationAction();
     private IndexAction indexAction = new IndexAction();
     private Stage stage;
 
@@ -75,6 +80,17 @@ public class MainController implements Initializable {
 
         if (term.length() > 2) {
 
+            Configuration configuration = new Configuration();
+            configuration.load();
+            if (!Files.exists(Paths.get(configuration.getDatabaseDir()))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Searching...");
+                alert.setHeaderText(null);
+                alert.setContentText("The specified database directory does not exist");
+                alert.show();
+                return;
+            }
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Searching...");
             alert.setHeaderText(null);
@@ -94,6 +110,11 @@ public class MainController implements Initializable {
             alert.setContentText("Search term too short...");
             alert.show();
         }
+    }
+
+    @FXML
+    private void handleSettingsAction(final ActionEvent event) {
+        this.configurationAction.process(event, this.stage);
     }
 
     @FXML

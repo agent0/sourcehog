@@ -30,6 +30,10 @@ public class QueryEngine {
 
         List<IndexEntry> result = new ArrayList<>();
 
+        if (!Files.exists(Paths.get(configuration.getDatabaseDir()))) {
+            return result;
+        }
+
         List<Path> files = this.getDbfilenames(configuration.getDatabaseDir());
         List<Callable<List<IndexEntry>>> callables = new ArrayList<>();
 
