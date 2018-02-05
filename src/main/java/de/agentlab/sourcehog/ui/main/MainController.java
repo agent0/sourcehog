@@ -3,6 +3,7 @@ package de.agentlab.sourcehog.ui.main;
 import de.agentlab.sourcehog.model.IndexEntry;
 import de.agentlab.sourcehog.query.QueryEngine;
 import de.agentlab.sourcehog.runner.EditorRunner;
+import de.agentlab.sourcehog.runner.ExplorerRunner;
 import de.agentlab.sourcehog.ui.indexing.IndexAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -33,7 +34,11 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tableView.setOnMousePressed(e -> {
-            if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+            if (e.isPrimaryButtonDown() && e.isShiftDown() && e.getClickCount() == 2) {
+                IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
+                new ExplorerRunner().run(entry.getFile());
+                System.out.println("explorer");
+            } else if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
                 IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
                 new EditorRunner().run(entry.getFile(), entry.getLine());
             }
