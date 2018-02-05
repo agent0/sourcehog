@@ -51,6 +51,7 @@ public class QueryEngine {
             e.printStackTrace();
         }
 
+        executor.shutdown();
         return result;
     }
 

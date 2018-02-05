@@ -90,6 +90,7 @@ public class MainController implements Initializable {
     @FXML
     private void handleExitAction(final ActionEvent event) {
         Platform.exit();
+        System.exit(0);
     }
 
     @FXML
