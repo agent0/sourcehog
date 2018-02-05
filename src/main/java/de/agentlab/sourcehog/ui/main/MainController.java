@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -33,11 +35,20 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ContextMenu cm = new ContextMenu();
+        MenuItem mi1 = new MenuItem("Datei im Explorer anzeigen");
+        mi1.setOnAction(e -> {
+            IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
+            new ExplorerRunner().run(entry.getFile());
+        });
+        cm.getItems().add(mi1);
+
         tableView.setOnMousePressed(e -> {
-            if (e.isPrimaryButtonDown() && e.isShiftDown() && e.getClickCount() == 2) {
+            if (e.isSecondaryButtonDown()) {
+                cm.show(tableView, e.getScreenX(), e.getScreenY());
+            } else if (e.isPrimaryButtonDown() && e.isShiftDown() && e.getClickCount() == 2) {
                 IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
                 new ExplorerRunner().run(entry.getFile());
-                System.out.println("explorer");
             } else if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
                 IndexEntry entry = tableView.getSelectionModel().getSelectedItem();
                 new EditorRunner().run(entry.getFile(), entry.getLine());
