@@ -73,19 +73,27 @@ public class MainController implements Initializable {
 
     private void search(String term) {
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Searching...");
-        alert.setHeaderText(null);
-        alert.setContentText("Searching...");
+        if (term.length() > 2) {
 
-        alert.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Searching...");
+            alert.setHeaderText(null);
+            alert.setContentText("Searching...");
+            alert.show();
 
-        List<IndexEntry> result = new QueryEngine().find(term);
+            List<IndexEntry> result = new QueryEngine().find(term);
 
-        alert.close();
-        tableView.scrollTo(0);
-        tableView.getItems().clear();
-        tableView.getItems().addAll(result);
+            alert.close();
+            tableView.scrollTo(0);
+            tableView.getItems().clear();
+            tableView.getItems().addAll(result);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Searching...");
+            alert.setHeaderText(null);
+            alert.setContentText("Search term too short...");
+            alert.show();
+        }
     }
 
     @FXML
