@@ -41,7 +41,7 @@
         </padding>
 
         <TextField fx:id="searchterm" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#onEnter"/>
-        <Button text="Suchen" GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#handleSubmitButtonAction"/>
+        <Button text="Find" GridPane.columnIndex="1" GridPane.rowIndex="0" onAction="#handleSubmitButtonAction"/>
 
         <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"
                    GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onKeyReleased="#handleKeyRelease">
