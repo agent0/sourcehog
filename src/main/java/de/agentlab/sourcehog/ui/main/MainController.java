@@ -83,6 +83,7 @@ public class MainController implements Initializable {
         List<IndexEntry> result = new QueryEngine().find(term);
 
         alert.close();
+        tableView.scrollTo(0);
         tableView.getItems().clear();
         tableView.getItems().addAll(result);
     }
